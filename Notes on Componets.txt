@@ -1,0 +1,30 @@
+Buck Converter
+(300W 20A DC-DC Buck Converter)
+https://www.youtube.com/watch?v=RgtKyW_U5pQ
+- Takes a higher voltage and converts to a lower voltage.
+- Takes input on the end with the two larger cylinders.
+- Outputs on the end with the three smaller cylinders.
+- Each output voltage is adjusted with a small flathead screwdriver on each of the blue boxes.
+	Measure this with a voltmeter
+
+Arduino Mega Module
+(Screw Terminal Block Breakout Shield Module for Arduino MEGA-2560 R3) [i think i'm not rlly sure]
+https://www.youtube.com/watch?v=Kaby9cK29hM (not the same product but helpful nonetheless)
+- This is an Arduino Mega Board with a weird kind off-brand motor shield soldered on top (I think)
+- VIN (MIGHT BE) power in for Arduino
+	Takes 5v
+- Red button at front is PROBABLY a reset button
+- each output/input on the Arduino shield for wires are called PINS
+- pins A0-A16 are ANALOG inputs or outputs which can produce or receive a signal between 0-255
+	https://besomi.com/ae_en/blog/post/signals-from-arduino-analog-vs-digital-pins
+- pins 0-13 are DIGITAL PWM or Pulse Width Modulation signals that can simulate analog signals by pulsing rapidly
+	https://docs.arduino.cc/learn/microcontrollers/analog-output/
+- odd-numbered pins 23-53 are DIGITAL signals which produce or receive a 1 or 0 output / input
+	https://besomi.com/ae_en/blog/post/signals-from-arduino-analog-vs-digital-pins
+
+24v Motors
+- You'll never guess what voltage these guys use
+- idk how those wires work \:
+
+LED light strips
+- connected to the Arduino
