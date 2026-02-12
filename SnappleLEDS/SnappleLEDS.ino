@@ -34,7 +34,7 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-
+if (i < 11){
   analogWrite(anologpin1, 100);
   analogWrite(anologpin2, 100);
   digitalWrite(motor1pin2, LOW);
@@ -56,6 +56,7 @@ void loop() {
   FastLED.show();
   delay(500);
   i++;
+}
   if (i == 11){
       FastLED.clear();
     FastLED.show();
