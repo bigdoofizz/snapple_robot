@@ -11,6 +11,7 @@ int anologpin1 = 8;
 int anologpin2 = 9;
 int motor2pin1 = 6;
 int motor2pin2 = 7;
+int i=0;
 int off = 1;
 void setup() {
   // put your setup code here, to run once:
@@ -27,25 +28,6 @@ void setup() {
   pinMode(anologpin2, OUTPUT);
 
 
-int i=0;
-    while(i<11){
-   fill_solid(leds_LEFT, NUM_LEDS, CRGB::Blue);
-   fill_solid(leds_RIGHT, NUM_LEDS, CRGB::Yellow);
-   FastLED.show();
-   delay(500);
-   fill_solid(leds_LEFT, NUM_LEDS, CRGB::Green);
-   fill_solid(leds_RIGHT, NUM_LEDS, CRGB::Magenta);
-   FastLED.show();
-   delay(500);
-   fill_solid(leds_LEFT, NUM_LEDS, CRGB::Red);
-   fill_solid(leds_RIGHT, NUM_LEDS, CRGB::Cyan);
-   FastLED.show();
-   delay(500);
-   i++; 
-    }
-    FastLED.clear();
-    FastLED.show();
-    return;
     
 
 }
@@ -53,12 +35,31 @@ int i=0;
 void loop() {
   // put your main code here, to run repeatedly:
 
-  analogWrite(anologpin1, 0);
-  analogWrite(anologpin2, 0);
+  analogWrite(anologpin1, 100);
+  analogWrite(anologpin2, 100);
   digitalWrite(motor1pin2, LOW);
   digitalWrite(motor1pin1, HIGH);
 
   digitalWrite(motor2pin1, LOW);
   digitalWrite(motor2pin2, HIGH);
 
+  fill_solid(leds_LEFT, NUM_LEDS, CRGB::Blue);
+  fill_solid(leds_RIGHT, NUM_LEDS, CRGB::Yellow);
+  FastLED.show();
+  delay(500);
+  fill_solid(leds_LEFT, NUM_LEDS, CRGB::Green);
+  fill_solid(leds_RIGHT, NUM_LEDS, CRGB::Magenta);
+  FastLED.show();
+  delay(500);
+  fill_solid(leds_LEFT, NUM_LEDS, CRGB::Red);
+  fill_solid(leds_RIGHT, NUM_LEDS, CRGB::Cyan);
+  FastLED.show();
+  delay(500);
+  i++;
+  if (i == 11){
+      FastLED.clear();
+    FastLED.show();
+  analogWrite(anologpin1, 0);
+  analogWrite(anologpin2, 0);
+  }
   }
