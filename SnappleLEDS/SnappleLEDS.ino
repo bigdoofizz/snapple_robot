@@ -7,7 +7,8 @@ CRGB leds_RIGHT[NUM_LEDS];
 CRGB leds_LEFT[NUM_LEDS];
 int motor1pin1 = 4;
 int motor1pin2 = 5;
-
+int anologpin1 = 8;
+int anologpin2 = 9;
 int motor2pin1 = 6;
 int motor2pin2 = 7;
 int off = 1;
@@ -22,6 +23,9 @@ void setup() {
   pinMode(motor1pin2, OUTPUT);
   pinMode(motor2pin1, OUTPUT);
   pinMode(motor2pin2, OUTPUT);
+  pinMode(anologpin1, OUTPUT);
+  pinMode(anologpin2, OUTPUT);
+
 
 int i=0;
     while(i<11){
@@ -48,10 +52,13 @@ int i=0;
 
 void loop() {
   // put your main code here, to run repeatedly:
-   digitalWrite(motor1pin1, LOW);
+
+  analogWrite(anologpin1, 0);
+  analogWrite(anologpin2, 0);
   digitalWrite(motor1pin2, LOW);
+  digitalWrite(motor1pin1, HIGH);
 
   digitalWrite(motor2pin1, LOW);
-  digitalWrite(motor2pin2, LOW);
+  digitalWrite(motor2pin2, HIGH);
 
   }
