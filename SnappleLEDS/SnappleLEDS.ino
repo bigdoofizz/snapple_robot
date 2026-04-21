@@ -13,7 +13,6 @@ int motor2pin1 = 6;
 int motor2pin2 = 7;
 int i=0;
 int off = 1;
-
 void kill(){
   digitalWrite(motor1pin1, LOW);
   digitalWrite(motor1pin2, LOW);
@@ -25,23 +24,35 @@ void forward(int speed){
   analogWrite(anologpin1, speed);
   analogWrite(anologpin2, speed);
   digitalWrite(motor1pin2, LOW);
-  digitalWrite(motor2pin2, LOW);
   digitalWrite(motor1pin1, HIGH);
+  digitalWrite(motor2pin2, LOW);
   digitalWrite(motor2pin1, HIGH);  
 }
 
 void backward(int speed){
   analogWrite(anologpin1, speed);
   analogWrite(anologpin2, speed);
-  digitalWrite(motor1pin1, LOW);
-  digitalWrite(motor2pin1, LOW);
   digitalWrite(motor1pin2, HIGH);
-  digitalWrite(motor2pin2, HIGH);  
+  digitalWrite(motor1pin1, LOW);
+  digitalWrite(motor2pin2, HIGH);
+  digitalWrite(motor2pin1, LOW);  
 }
-
-
-
-
+void turnRight(int speed){
+  analogWrite(anologpin1, speed);
+  analogWrite(anologpin2, speed);
+  digitalWrite(motor1pin2, LOW);
+  digitalWrite(motor1pin1, HIGH);
+  digitalWrite(motor2pin2, HIGH);
+  digitalWrite(motor2pin1, LOW);  
+}
+void turnLeft(int speed){
+  analogWrite(anologpin1, speed);
+  analogWrite(anologpin2, speed);
+  digitalWrite(motor1pin2, HIGH);
+  digitalWrite(motor1pin1, LOW);
+  digitalWrite(motor2pin2, LOW);
+  digitalWrite(motor2pin1, HIGH);  
+}
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
@@ -94,6 +105,15 @@ void loop() {
     Serial.print(command);
     if (command == '1') {
       forward(100);
+    }
+    if (command == '2') {
+      backward(100);
+    }
+    if (command == '3') {
+      turnRight(100);
+    }
+    if (command == '4') {
+      turnLeft(100);
     }
     if (command == '0') {
       kill();
