@@ -118,7 +118,107 @@ void loop() {
     if (command == '0') {
       kill();
     }
+    if (command =='1B') {
+      pacifica();
+    }
+    if (command == '2B'){
+      fire()
+    }
+    if (command == '3B'){
+      twinkle();
+    }
+    if(command == '4B'){
+      stopLED();
+    }
   }
 }
+void stopLED(){
+     FastLED.clear();
+    FastLED.show();
+}
+void pacifica() {
+    // Four layers of waves
+    pacifica_one_layer(1, 26, 100, 11);
+    pacifica_one_layer(2, 13, 65, 17);
+    pacifica_one_layer(3, 8, 43, 23);
+    pacifica_one_layer(4, 5, 28, 29);
 
-  
+    // Add whitecaps
+    pacifica_add_whitecaps();
+
+    // Deepen colors
+    pacifica_deepen_colors();
+}
+
+void pacifica_one_layer(uint8_t layer, uint16_t speed, uint8_t scale, uint8_t offset) {
+    uint16_t dataOffset = layer * NUM_LEDS;
+    for (int i = 0; i < NUM_LEDS; i++) {
+        uint16_t angle = (millis() / speed) + (i * scale) + offset;
+        uint8_t level = sin8(angle) / 2 + 127;
+        leds[i] += CHSV(200, 255, level);  // Blue-green
+    }
+}
+
+void pacifica_add_whitecaps() {
+    uint8_t basethreshold = beatsin8(9, 55, 65);
+    for (int i = 0; i < NUM_LEDS; i++) {
+        uint8_t threshold = basethreshold + (i * 2);
+        if (leds[i].blue > threshold) {
+            uint8_t overage = leds[i].blue - threshold;
+            leds[i] += CRGB(overage, overage, overage);
+        }
+    }
+}
+
+void pacifica_deepen_colors() {
+    for (int i = 0; i < NUM_LEDS; i++) {
+        leds[i].blue = scale8(leds[i].blue, 145);
+        leds[i].green = scale8(leds[i].green, 200);
+    }
+}
+#define NUM_LEDS 60
+CRGB leds[NUM_LEDS];
+byte heat[NUM_LEDS];
+
+void fire() {
+    // Step 1: Cool down every cell a little
+    for (int i = 0; i < NUM_LEDS; i++) {
+        heat[i] = qsub8(heat[i], random8(0, ((55 * 10) / NUM_LEDS) + 2));
+    }
+
+    // Step 2: Heat from each cell drifts 'up' and diffuses a little
+    for (int k = NUM_LEDS - 1; k >= 2; k--) {
+        heat[k] = (heat[k - 1] + heat[k - 2] + heat[k - 2]) / 3;
+    }
+
+    // Step 3: Randomly ignite new 'sparks' at the bottom
+    if (random8() < 120) {
+        int y = random8(7);
+        heat[y] = qadd8(heat[y], random8(160, 255));
+    }
+
+    // Step 4: Map heat to LED colors
+    for (int j = 0; j < NUM_LEDS; j++) {
+        // Scale heat to 0-240 for palette index
+        byte colorIndex = scale8(heat[j], 240);
+
+        // Use HeatColors palette
+        leds[j] = ColorFromPalette(HeatColors_p, colorIndex);
+    }
+}
+
+void loop() {
+    fire();
+    FastLED.show();
+    delay(15);
+}
+void twinkle() {
+    // Fade all LEDs slightly
+    fadeToBlackBy(leds, NUM_LEDS, 32);
+
+    // Add new twinkles
+    if (random8() < 50) {  // 50/255 chance per frame
+        int pos = random16(NUM_LEDS);
+        leds[pos] = CHSV(random8(), 200, 255);  // Random color
+    }
+}
