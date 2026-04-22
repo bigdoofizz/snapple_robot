@@ -75,7 +75,7 @@ while running:
     if joystick:
         deadzone = 0.3
         y_axis = joystick.get_axis(1) # Vertical
-        x_axis = joystick.get_axis(0) # Horizontal
+        x_axis = joystick.get_axis(4) # Horizontal
         
         if y_axis < -deadzone: forward = True
         if y_axis > deadzone:  backward = True
